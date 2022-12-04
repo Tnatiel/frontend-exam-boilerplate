@@ -48,7 +48,11 @@ function attachListeners() {
  */
 
 async function getExchangeRateFromApi(dateCode: string, currencyCode: string) {
-
+    const response = await fetch(`https://currency-ror1.vercel.app/api/currency?rdate=${dateCode}&curr=${currencyCode}`);
+    const data = await response.json()
+    const rate = data.CURRENCIES.CURRENCY.RATE
+    return rate
+    
 
 }
 
