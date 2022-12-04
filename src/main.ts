@@ -32,6 +32,7 @@ const currencyNames = [
 
 window.addEventListener('DOMContentLoaded', (event) => {
   attachListeners();
+  populateTable()
   return populateTable();
 });
 
@@ -51,7 +52,7 @@ async function getExchangeRateFromApi(dateCode: string, currencyCode: string) {
     const response = await fetch(`https://currency-ror1.vercel.app/api/currency?rdate=${dateCode}&curr=${currencyCode}`);
     const data = await response.json()
     const rate = data.CURRENCIES.CURRENCY.RATE
-    return rate
+    return String(rate)
     
 
 }
@@ -66,6 +67,12 @@ async function getExchangeRateFromApi(dateCode: string, currencyCode: string) {
 async function getExchangeRateFromForm(event) {
   event.preventDefault();
   event.stopPropagation();
+//   create a func to add spinner
+//   take the form values
+//   call getExchangeRateFromApi with values
+//   the result div.innerHTML = return data from getExchangeRateFromApi
+//  remove the spinner probably would have made a function and give a condition on the innerHTML
+// if inner typeof(Number) call spinner remover
 
 
 }
@@ -78,6 +85,34 @@ async function getExchangeRateFromForm(event) {
 
 async function populateTable() {
 
+    async function getData() {
+        /*function to get the array of objects */
+        const response = await fetch('https://currency-ror1.vercel.app/api/dates-table');
+        const data = await response.json();
+        console.log(data)
+    }
+    const objArr = await getData()
+
+    for (const obIdx in objArr) {
+        const obj = objArr[obIdx]
+        const date = obj.date;
+        const curr = obj.currency;
+        const rate = getExchangeRateFromApi(date, curr)
+        createTableRow(date, curr, rate)
+    }
+
+    function createTableRow(date: string, currency:string, exchange:number) {
+        const row = document.createElement('tr');
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+        const td3 = document.createElement('td');
+        td1.innerHTML = date;
+        td2.innerHTML = currency;
+        td3.innerHTML = exchange.toString();
+            
+        }
+
+    
 
 
   return null;
