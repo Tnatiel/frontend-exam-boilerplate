@@ -19,6 +19,24 @@ $section-cell-border-radius: 4px;
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  border: #1976d2 solid 2px;
+  border-radius: 4px;
+  gap: 20px;
+  // I know the gap suppose to be 20px but for the form width fit i used 25px padding
+  padding: 25px;
+}
+
+
 h1 {
   text-align: center;
 }
